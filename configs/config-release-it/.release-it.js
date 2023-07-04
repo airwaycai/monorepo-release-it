@@ -20,7 +20,7 @@ module.exports = {
     commitsPath: '.',
     commitMessage: `feat(${scope}): released version v${version} [no ci]`,
     requireCommits: true,
-    requireCommitsFail: false,
+    requireCommitsFail: false
   },
   npm: {
     publish: false,
