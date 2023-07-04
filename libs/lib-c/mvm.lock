@@ -1,5 +1,5 @@
 {
   "devDependencies": {
-    "@mono/config-release-it": "0.0.1"
+    "@mono/config-release-it": "0.0.2"
   }
 }
