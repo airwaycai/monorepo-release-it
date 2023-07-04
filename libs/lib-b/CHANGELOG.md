@@ -1,5 +1,13 @@
 
 
+## [0.2.0](https://github.com/airwaycai/monorepo-release-it/compare/@mono/lib-b-v0.1.0...@mono/lib-b-v0.2.0) (2023-07-04)
+
+
+### Features
+
+* **config-release-it:** released version v0.0.2 [no ci] ([550cc6c](https://github.com/airwaycai/monorepo-release-it/commit/550cc6c93dea20d53ebb11002d9829c114e1df62))
+* **lib-c:** released version v0.2.0 [no ci] ([51395c9](https://github.com/airwaycai/monorepo-release-it/commit/51395c9bb1d96e6e3682b081d34cccea1790944f))
+
 ## 0.1.0 (2023-07-04)
 
 
