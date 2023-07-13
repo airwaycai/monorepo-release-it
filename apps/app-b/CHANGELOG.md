@@ -1,6 +1,6 @@
 
 
-## [0.2.0](https://github.com/airwaycai/monorepo-release-it/compare/@mono/app-b-v0.1.0...@mono/app-b-v0.2.0) (2023-07-04)
+## [0.2.0](https://github.com/airwaycai/monorepo-release-it/compare/@mono-release/app-b-v0.1.0...@mono-release/app-b-v0.2.0) (2023-07-04)
 
 
 ### Features

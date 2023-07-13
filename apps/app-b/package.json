@@ -1,15 +1,15 @@
 {
-  "name": "@mono/app-b",
-  "version": "0.2.0",
+  "name": "@mono-release/app-b",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
     "release": "release-it --ci"
   },
   "dependencies": {
-    "@mono/lib-b": "*"
+    "@mono-release/lib-b": "*"
   },
   "devDependencies": {
-    "@mono/config-release-it": "*"
+    "@mono-release/config-release-it": "*"
   }
 }

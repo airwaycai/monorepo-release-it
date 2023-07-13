@@ -1,6 +1,6 @@
 
 
-## [0.2.0](https://github.com/airwaycai/monorepo-release-it/compare/@mono/lib-c-v0.1.0...@mono/lib-c-v0.2.0) (2023-07-04)
+## [0.2.0](https://github.com/airwaycai/monorepo-release-it/compare/@mono-release/lib-c-v0.1.0...@mono-release/lib-c-v0.2.0) (2023-07-04)
 
 
 ### Features

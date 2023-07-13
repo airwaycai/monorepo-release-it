@@ -1,13 +1,16 @@
 {
-  "name": "@mono/lib-a",
-  "version": "0.2.0",
+  "name": "@mono-release-release/lib-a",
+  "version": "0.0.1",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "release": "release-it --ci"
+    "release:": "release-it --ci",
+    "release:no-npm": "release-it --no-npm --ci",
+    "release:beta:no-npm": "release-it --preRelease=beta --no-npm --ci",
+    "release:beta": "release-it --preRelease=beta --ci"
   },
   "devDependencies": {
-    "@mono/config-release-it": "*",
-    "@mono/lib-c": "*"
+    "@mono-release-release/config-release-it": "*",
+    "@mono-release-release/lib-c": "*"
   }
 }
