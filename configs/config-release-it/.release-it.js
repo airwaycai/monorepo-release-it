@@ -14,7 +14,7 @@ module.exports = {
     },
   },
   git: {
-    push: true,
+    push: false,
     tagName: `${packageName}-v${version}`,
     pushRepo: 'https://github.com/airwaycai/monorepo-release-it.git',
     commitsPath: '.',
