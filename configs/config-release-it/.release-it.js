@@ -28,7 +28,7 @@ module.exports = {
     versionArgs: ['--workspaces false']
   },
   github: {
-    release: false,
+    release: true,
     releaseName: `${packageName}-v${version}`,
   },
   hooks: {
