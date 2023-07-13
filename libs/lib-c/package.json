@@ -1,5 +1,5 @@
 {
-  "name": "@mono-release-release/lib-c",
+  "name": "@mono-release/lib-c",
   "version": "0.0.1",
   "license": "MIT",
   "main": "index.js",
@@ -7,6 +7,6 @@
     "release": "release-it --ci"
   },
   "devDependencies": {
-    "@mono-release-release/config-release-it": "*"
+    "@mono-release/config-release-it": "*"
   }
 }
