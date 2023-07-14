@@ -16,7 +16,6 @@ module.exports = {
   git: {
     push: true,
     tagName: `${packageName}-v${version}`,
-    pushArgs: ["--follow-tags"],
     pushRepo: 'https://github.com/airwaycai/monorepo-release-it.git',
     commitsPath: '.',
     commitMessage: `feat(${scope}): released version v${version} [no ci]`,
