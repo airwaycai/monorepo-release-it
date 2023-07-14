@@ -4,17 +4,11 @@
   "private": true,
   "license": "UNLICENSED",
   "workspaces": [
-    "apps/app-a",
-    "apps/app-b",
-    "libs/lib-a",
-    "libs/lib-b",
-    "libs/lib-c",
-    "configs/config-release-it"
+    "packages/*"
   ],
   "scripts": {
     "prepare": "husky install",
-    "release": "release-it --concurrency=1",
-    "release:beta": "release-it --concurrency=1"
+    "release": "release-it"
   },
   "devDependencies": {
     "@commitlint/cli": "17.6.1",

@@ -10,7 +10,6 @@
     "release:beta": "release-it --preRelease=beta --ci"
   },
   "devDependencies": {
-    "@mono-release/config-release-it": "*",
     "@mono-release/lib-c": "*"
   }
 }

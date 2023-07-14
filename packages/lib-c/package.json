@@ -5,8 +5,5 @@
   "main": "index.js",
   "scripts": {
     "release": "release-it --ci"
-  },
-  "devDependencies": {
-    "@mono-release/config-release-it": "*"
   }
 }

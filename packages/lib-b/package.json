@@ -7,7 +7,6 @@
     "release": "release-it --ci"
   },
   "devDependencies": {
-    "@mono-release/config-release-it": "*",
     "@mono-release/lib-c": "*"
   }
 }
