@@ -31,11 +31,5 @@ module.exports = {
     release: true,
     releaseName: `${packageName}-v${version}`,
   },
-  hooks: {
-    "before:init": "git fetch --prune --prune-tags origin",
-    'before:git:release': [
-      'mvm-update',
-      'git add --all',
-    ],
-  },
+  hooks: {}
 };
