@@ -1,5 +1,12 @@
 
 
+## [0.2.0](https://github.com/airwaycai/monorepo-release-it/compare/@mono-release/config-release-it-v0.1.0...@mono-release/config-release-it-v0.2.0) (2023-07-14)
+
+
+### Features
+
+* 修改a包 ([fc27ff2](https://github.com/airwaycai/monorepo-release-it/commit/fc27ff25841ecca9c5b52d03941c3db768ba3993))
+
 ## 0.1.0 (2023-07-14)
 
 
