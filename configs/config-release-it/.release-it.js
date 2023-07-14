@@ -16,6 +16,7 @@ module.exports = {
   git: {
     push: true,
     tagName: `${packageName}-v${version}`,
+    pushArgs: ["--follow-tags"],
     pushRepo: 'https://github.com/airwaycai/monorepo-release-it.git',
     commitsPath: '.',
     commitMessage: `feat(${scope}): released version v${version} [no ci]`,
@@ -32,10 +33,5 @@ module.exports = {
     releaseName: `${packageName}-v${version}`,
   },
   hooks: {
-    "before:init": "git fetch --prune --prune-tags origin",
-    'before:git:release': [
-      'mvm-update',
-      'git add --all',
-    ],
   },
 };
