@@ -1,6 +1,0 @@
-{
-  "devDependencies": {
-    "@mono-release/config-release-it": "0.0.2",
-    "@mono-release/lib-c": "0.2.0"
-  }
-}

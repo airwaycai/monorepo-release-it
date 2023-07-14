@@ -21,7 +21,7 @@ module.exports = {
     commitMessage: `feat(${scope}): released version v${version} [no ci]`,
     requireCommits: true,
     requireCommitsFail: false,
-    requireBranch: ["main"]
+    requireBranch: ["feature-mono-workspaces"]
   },
   npm: {
     publish: false,
@@ -32,9 +32,5 @@ module.exports = {
     releaseName: `${packageName}-v${version}`,
   },
   hooks: {
-    'before:git:release': [
-      'mvm-update',
-      'git add --all',
-    ],
   },
 };

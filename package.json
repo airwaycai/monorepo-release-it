@@ -12,16 +12,14 @@
     "configs/config-release-it"
   ],
   "scripts": {
-    "start": "turbo start",
     "prepare": "husky install",
-    "release": "turbo release --concurrency=1",
-    "release:beta": "turbo release:beta --concurrency=1"
+    "release": "release-it --concurrency=1",
+    "release:beta": "release-it --concurrency=1"
   },
   "devDependencies": {
     "@commitlint/cli": "17.6.1",
     "@commitlint/config-conventional": "17.6.1",
-    "husky": "8.0.3",
-    "turbo": "1.9.3"
+    "husky": "8.0.3"
   },
   "packageManager": "yarn@1.22.19"
 }
