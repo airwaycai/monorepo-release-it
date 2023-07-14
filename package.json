@@ -8,12 +8,15 @@
   ],
   "scripts": {
     "prepare": "husky install",
-    "release": "release-it"
+    "release": "release-it --ci"
   },
   "devDependencies": {
     "@commitlint/cli": "17.6.1",
     "@commitlint/config-conventional": "17.6.1",
-    "husky": "8.0.3"
+    "@release-it-plugins/workspaces": "4.0.0",
+    "@release-it/conventional-changelog": "7.0.0",
+    "husky": "8.0.3",
+    "release-it": "16.1.0"
   },
   "packageManager": "yarn@1.22.19"
 }
