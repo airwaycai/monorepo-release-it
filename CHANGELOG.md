@@ -1,5 +1,12 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+## [0.1.0-beta.1](https://github.com/airwaycai/monorepo-release-it/compare/v0.1.0-beta.0...v0.1.0-beta.1) (2023-07-14)
+
+
+### Features
+
+* 更改a包 ([0d22755](https://github.com/airwaycai/monorepo-release-it/commit/0d22755befe9871439abb9f27f013be86b64572b))
+
 ## 0.1.0-beta.0 (2023-07-14)
 
 
