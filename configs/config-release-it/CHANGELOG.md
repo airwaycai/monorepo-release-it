@@ -1,0 +1,11 @@
+
+
+## 0.1.0 (2023-07-14)
+
+
+### Features
+
+* **config-release-it:** released version v0.0.1 [no ci] ([a01e273](https://github.com/airwaycai/monorepo-release-it/commit/a01e273c140fc2e8b31b7879529006c06da00f44))
+* **config-release-it:** released version v0.0.2 [no ci] ([550cc6c](https://github.com/airwaycai/monorepo-release-it/commit/550cc6c93dea20d53ebb11002d9829c114e1df62))
+* 仅仅改动a包 ([69cd4b4](https://github.com/airwaycai/monorepo-release-it/commit/69cd4b4b4f05db261fb126fe69720d919e275ad3))
+* 初始化 ([bd30335](https://github.com/airwaycai/monorepo-release-it/commit/bd30335e9d78df05a177d5fa91fcb6b49326493c))
