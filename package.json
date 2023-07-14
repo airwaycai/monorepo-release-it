@@ -1,6 +1,6 @@
 {
   "name": "mono-release",
-  "version": "0.0.0",
+  "version": "0.1.0-beta.0",
   "private": true,
   "license": "UNLICENSED",
   "workspaces": [
@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "prepare": "husky install",
-    "release": "release-it"
+    "release:beta": "release-it --preRelease=beta"
   },
   "devDependencies": {
     "@commitlint/cli": "17.6.1",
