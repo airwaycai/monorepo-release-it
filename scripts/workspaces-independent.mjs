@@ -13,6 +13,8 @@ import {
 } from 'release-it';
 import validatePeerDependencies from 'validate-peer-dependencies';
 import YAML from 'yaml';
+import  chalk from 'chalk';
+const { green, red, redBright } = chalk;
 
 const __filename = fileURLToPath(
     import.meta.url);
@@ -158,6 +160,13 @@ class JSONFile {
     }
 }
 
+const versionTransformer = (context) => (input) =>
+  semver.valid(input)
+    ? semver.gt(input, context.latestVersion)
+      ? green(input)
+      : red(input)
+    : redBright(input);
+
 export default class WorkspacesPlugin extends Plugin {
     static isEnabled(options) {
         return fs.existsSync(ROOT_MANIFEST_PATH) && options !== false;
@@ -192,6 +201,16 @@ export default class WorkspacesPlugin extends Plugin {
 
                     return `Publishing ${currentPackage.name} failed because \`publishConfig.access\` is not set in its \`package.json\`.\n  Would you like to publish ${currentPackage.name} as a public package?`;
                 },
+            },
+            independentVersion: {
+                type: 'input',
+                message(context) {
+                  const { currentPackage } = context['release-it-yarn-workspaces'];
+                  return `Please enter a valid version for the independent ${currentPackage.name}, from ${currentPackage.pkgInfo.pkg.version}:`;
+                },
+                transformer: (context) => versionTransformer(context),
+                validate: (input) =>
+                  !!semver.valid(input) || 'The version must follow the semver standard.',
             },
         });
 
@@ -246,6 +265,21 @@ export default class WorkspacesPlugin extends Plugin {
         }
         const workspaces = this.getWorkspaces();
 
+        const independentWorkspaceWithVersions = [];
+        await this.eachWorkspace(async (workspaceInfo) => {
+          const versionOfIndependentWorkspace = await this.promptIncrementVersion();
+          independentWorkspaceWithVersions.push([
+            workspaceInfo.name,
+            { workspace: workspaceInfo, version: versionOfIndependentWorkspace },
+          ]);
+        }, this.getIndependentWorkspaces());
+    
+        const workspaceWithNewVersionsMap = new Map(
+          workspaces
+            .map((workspace) => [workspace.name, { workspace, version }])
+            .concat(independentWorkspaceWithVersions)
+        );
+
         const packagesToPublish = workspaces
             .filter((w) => !w.isPrivate)
             .map((workspace) => workspace.name);
@@ -261,36 +295,36 @@ export default class WorkspacesPlugin extends Plugin {
                 isDryRun
             } = this.config;
 
-            const updateVersion = (pkgInfo) => {
+            const updateVersion = (pkgInfo, newVersion) => {
                 let {
                     pkg
                 } = pkgInfo;
                 let originalVersion = pkg.version;
 
-                if (originalVersion === version) {
-                    this.log.warn(`\tDid not update version (already at ${version}).`);
+                if (originalVersion === newVersion) {
+                    this.log.warn(`\tDid not update version (already at ${newVersion}).`);
                 }
 
-                this.log.exec(`\tversion: -> ${version} (from ${originalVersion})`);
+                this.log.exec(`\tversion: -> ${newVersion} (from ${originalVersion})`);
 
                 if (!isDryRun) {
-                    pkg.version = version;
+                    pkg.version = newVersion;
                 }
             };
 
-            workspaces.forEach(({
-                relativeRoot,
-                pkgInfo
-            }) => {
+            for (let {
+                workspace: { relativeRoot, pkgInfo },
+                version: newVersion,
+              } of workspaceWithNewVersionsMap.values()) {
                 this.log.exec(`Processing ${relativeRoot}/package.json:`);
 
-                updateVersion(pkgInfo);
-                this._updateDependencies(pkgInfo, version);
+                updateVersion(pkgInfo, newVersion);
+                this._updateDependencies(pkgInfo, workspaceWithNewVersionsMap);
 
                 if (!isDryRun) {
                     pkgInfo.write();
                 }
-            });
+            };
 
             const additionalManifests = this.getAdditionalManifests();
             if (additionalManifests.dependencyUpdates) {
@@ -302,7 +336,7 @@ export default class WorkspacesPlugin extends Plugin {
                         `Processing additionManifest.dependencyUpdates for ${relativeRoot}/package.json:`
                     );
 
-                    this._updateDependencies(pkgInfo, version);
+                    this._updateDependencies(pkgInfo, workspaceWithNewVersionsMap);
 
                     if (!isDryRun) {
                         pkgInfo.write();
@@ -318,7 +352,7 @@ export default class WorkspacesPlugin extends Plugin {
                     this.log.exec(
                         `Processing additionManifest.versionUpdates for ${relativeRoot}/package.json:`
                     );
-                    updateVersion(pkgInfo);
+                    updateVersion(pkgInfo, version);
 
                     if (!isDryRun) {
                         pkgInfo.write();
@@ -382,7 +416,7 @@ export default class WorkspacesPlugin extends Plugin {
         return newVersion;
     }
 
-    _updateDependencies(pkgInfo, newVersion) {
+    _updateDependencies(pkgInfo, workspaceWithNewVersionsMap) {
         const {
             isDryRun
         } = this.config;
@@ -396,11 +430,11 @@ export default class WorkspacesPlugin extends Plugin {
 
             if (dependencies) {
                 for (let dependency in dependencies) {
-                    if (workspaces.find((w) => w.name === dependency)) {
+                    if (workspaceWithNewVersionsMap.has(dependency)) {
                         const existingVersion = dependencies[dependency];
                         const replacementVersion = this._buildReplacementDepencencyVersion(
                             existingVersion,
-                            newVersion
+                            workspaceWithNewVersionsMap.get(dependency).version
                         );
 
                         this.log.exec(
@@ -555,8 +589,8 @@ export default class WorkspacesPlugin extends Plugin {
         }
     }
 
-    async eachWorkspace(action) {
-        let workspaces = this.getWorkspaces();
+    async eachWorkspace(action, workspaces = this.getWorkspaces()) {
+        // let workspaces = this.getWorkspaces();
 
         for (let workspaceInfo of workspaces) {
             try {
@@ -631,4 +665,41 @@ export default class WorkspacesPlugin extends Plugin {
 
         return this._workspaces;
     }
+    getIndependentWorkspaces() {
+        if (this._independentWorkspaces) {
+          return this._independentWorkspaces;
+        }
+    
+        let root = this.getContext('root');
+        let { independentWorkspaces } = this.options;
+        if (!independentWorkspaces) return [];
+        let packageJSONFiles = walkSync('.', {
+          globs: independentWorkspaces.map((glob) => `${glob}/package.json`),
+        });
+    
+        return (this._independentWorkspaces = packageJSONFiles.map((file) => {
+          let absolutePath = path.join(root, file);
+          let pkgInfo = JSONFile.for(absolutePath);
+    
+          let relativeRoot = path.dirname(file);
+    
+          return {
+            root: path.join(root, relativeRoot),
+            relativeRoot,
+            name: pkgInfo.pkg.name,
+            isPrivate: !!pkgInfo.pkg.private,
+            isReleased: false,
+            pkgInfo,
+          };
+        }));
+      }
+    
+      promptIncrementVersion() {
+        return new Promise((resolve) => {
+          this.step({
+            prompt: 'independentVersion',
+            task: resolve,
+          });
+        });
+      }
 }

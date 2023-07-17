@@ -11,17 +11,15 @@ module.exports = {
     "commitsPath": ".",
     "requireCommits": true,
     "requireCommitsFail": false,
-    "requireBranch": ["feature-mono-workspaces"]
+    "requireBranch": ["feature-mono-workspaces-indivadual"]
   },
   "github": {
     "release": true,
     "releaseName": `v${version}`,
   },
   "plugins": {
-    "@release-it-plugins/workspaces": {
-      "workspaces": [
-        "packages/*"
-      ]
+    "./scripts/workspaces-independent.mjs": {
+
     },
     "@release-it/conventional-changelog": {
       "header": "# Changelog for sn-filter-pane and sn-listbox",
