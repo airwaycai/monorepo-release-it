@@ -1,6 +1,6 @@
 {
   "name": "@mono-release/lib-a",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.0-beta.2",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,6 @@
     "release:beta": "release-it --preRelease=beta --ci"
   },
   "devDependencies": {
-    "@mono-release/lib-c": "0.1.0-beta.1"
+    "@mono-release/lib-c": "0.1.0-beta.2"
   }
 }
